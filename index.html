@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Room Site</title>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- NAVIGATION -->
+  <div class="nav">
+    <button onclick="goToRoom('home')">Home</button>
+    <button onclick="goToRoom('work')">Work</button>
+    <button onclick="goToRoom('film')">Film</button>
+    <button onclick="goToRoom('contact')">Contact</button>
+  </div>
+
+  <!-- ROOMS CONTAINER -->
+
+  <div id="home" class="room active">
+    <div class="content">
+      <h1>Home</h1>
+      <p>Welcome to the room system.</p>
+    </div>
+  </div>
+
+  <div id="work" class="room">
+    <div class="content">
+      <h1>Work</h1>
+      <p>Projects, images, and experiments live here.</p>
+    </div>
+  </div>
+
+  <div id="film" class="room">
+    <div class="content">
+      <h1>Film</h1>
+      <p>Video and performance work.</p>
+    </div>
+  </div>
+
+  <div id="contact" class="room">
+    <div class="content">
+      <h1>Contact</h1>
+      <p>Email, links, and info.</p>
+    </div>
+  </div>
+
+  <!-- SCRIPT -->
+  <script src="script.js"></script>
+
+</body>
+</html>
