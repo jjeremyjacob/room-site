@@ -1,55 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Room Site</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Room System</title>
 
-  <link rel="stylesheet" href="style.css" />
+<style>
+  body {
+    margin: 0;
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  /* ===== FRAME (4:5 INSET) ===== */
+.frame {
+  width: min(420px, 90vw);
+  aspect-ratio: 4 / 5;
+  border-radius: 28px;
+  background: #000;
+
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.12),
+    0 30px 90px rgba(0,0,0,0.85);
+
+  position: relative;
+  overflow: hidden; /* ← KEY */
+}
+
+.screen {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  border-radius: 18px;
+  background: #000; /* ← THIS is the fix */
+}
+
+  /* ===== ROOMS ===== */
+  .room {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+
+    background-size: cover;
+    background-position: center;
+    pointer-events: none;
+  }
+
+  .room.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  #room1 { background-image: url("images/room1.jpg"); }
+  #room2 { background-image: url("images/room2.gif"); }
+  #room3 { background-image: url("images/room3.jpg"); }
+  #room4 { background-image: url("images/room4.jpg"); }
+
+  /* subtle depth overlay */
+  .overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.25);
+  }
+
+  /* ===== CENTER STACKED BUTTONS ===== */
+  .nav {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    z-index: 10;
+    align-items: center;
+  }
+
+  button {
+    padding: 10px 14px;
+    border: none;
+    cursor: pointer;
+    font-size: 13px;
+    background: transparent;
+    color: white;
+  }
+
+  button:active {
+    transform: scale(0.98);
+  }
+
+</style>
 </head>
 
 <body>
 
-  <!-- NAVIGATION -->
-  <div class="nav">
-    <button onclick="goToRoom('home')">Home</button>
-    <button onclick="goToRoom('work')">Work</button>
-    <button onclick="goToRoom('film')">Film</button>
-    <button onclick="goToRoom('contact')">Contact</button>
-  </div>
+<div class="frame">
+  <div class="screen">
 
-  <!-- ROOMS CONTAINER -->
+    <!-- ROOMS -->
+    <div id="room1" class="room active"><div class="overlay"></div></div>
+    <div id="room2" class="room"><div class="overlay"></div></div>
+    <div id="room3" class="room"><div class="overlay"></div></div>
+    <div id="room4" class="room"><div class="overlay"></div></div>
 
-  <div id="home" class="room active">
-    <div class="content">
-      <h1>Home</h1>
-      <p>Welcome to the room system.</p>
+    <!-- NAV -->
+    <div class="nav">
+      <button onclick="prevRoom()">-</button>
+      <button onclick="nextRoom()">+</button>
     </div>
-  </div>
 
-  <div id="work" class="room">
-    <div class="content">
-      <h1>Work</h1>
-      <p>Projects, images, and experiments live here.</p>
-    </div>
   </div>
+</div>
 
-  <div id="film" class="room">
-    <div class="content">
-      <h1>Film</h1>
-      <p>Video and performance work.</p>
-    </div>
-  </div>
+<script>
+let current = 1;
+const total = 4;
 
-  <div id="contact" class="room">
-    <div class="content">
-      <h1>Contact</h1>
-      <p>Email, links, and info.</p>
-    </div>
-  </div>
+function showRoom(n) {
+  document.querySelectorAll('.room').forEach(r => r.classList.remove('active'));
+  document.getElementById('room' + n).classList.add('active');
+}
 
-  <!-- SCRIPT -->
-  <script src="script.js"></script>
+function nextRoom() {
+  current++;
+  if (current > total) current = 1;
+  showRoom(current);
+}
+
+function prevRoom() {
+  current--;
+  if (current < 1) current = total;
+  showRoom(current);
+}
+</script>
 
 </body>
 </html>

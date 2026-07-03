@@ -1,20 +1,24 @@
-function goToRoom(roomId) {
-  const rooms = document.querySelectorAll('.room');
+console.log("RESET SYSTEM LOADED");
 
-  rooms.forEach(room => {
-    room.classList.add('hidden');
-  });
+const player = document.querySelector(".player");
+const world = document.querySelector(".world");
 
-  document.getElementById(roomId).classList.remove('hidden');
+let x = 100;
+let y = 100;
+
+function render() {
+  player.style.left = x + "px";
+  player.style.top = y + "px";
 }
 
-function goToRoom(roomId) {
-  const rooms = document.querySelectorAll(".room");
+/* simple movement */
+window.addEventListener("keydown", (e) => {
+  if (e.key === "ArrowUp") y -= 10;
+  if (e.key === "ArrowDown") y += 10;
+  if (e.key === "ArrowLeft") x -= 10;
+  if (e.key === "ArrowRight") x += 10;
 
-  rooms.forEach(room => {
-    room.classList.remove("active");
-  });
+  render();
+});
 
-  const next = document.getElementById(roomId);
-  next.classList.add("active");
-}
+render();
